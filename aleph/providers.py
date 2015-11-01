@@ -29,7 +29,9 @@ class Stub():
 
 PROVIDERS = {
     'twitter': Stub('twitter'),
-    'facebook': Stub('facebook')
+    'facebook': Stub('facebook'),
+    'github': Stub('github'),
+    'google': Stub('google'),
 }
 
 
@@ -63,3 +65,39 @@ if app.config.get('FACEBOOK_APP_ID') is not None:
         return session.get('facebook_token')
 
     PROVIDERS['facebook'] = facebook
+
+if app.config.get('GITHUB_CLIENT_ID') is not None:
+    github = oauth.remote_app('github',
+        base_url='https://github.com/login/',
+        request_token_url=None,
+        access_token_url='https://github.com/login/oauth/access_token',
+        authorize_url='https://github.com/login/oauth/authorize',
+        consumer_key=app.config.get('GITHUB_CLIENT_ID'),
+        consumer_secret=app.config.get('GITHUB_CLIENT_SECRET'))
+
+    @github.tokengetter
+    def get_github_token(token=None):
+        return session.get('github_token')
+
+    PROVIDERS['github'] = github
+
+if app.config.get('GOOGLE_CLIENT_ID') is not None:
+    google = oauth.remote_app('google',
+        base_url='https://www.google.com/accounts/',
+        request_token_url=None,
+        access_token_url='https://www.googleapis.com/oauth2/v3/token',
+        access_token_method='POST',
+        access_token_params={'grant_type': 'authorization_code'},
+        authorize_url='https://accounts.google.com/o/oauth2/auth',
+        consumer_key=app.config.get('GOOGLE_CLIENT_ID'),
+        consumer_secret=app.config.get('GOOGLE_CLIENT_SECRET'),
+        request_token_params={
+            'scope': 'email profile',
+            'response_type': 'code',
+        })
+
+    @google.tokengetter
+    def get_google_token(token=None):
+        return session.get('google_token')
+
+    PROVIDERS['google'] = google

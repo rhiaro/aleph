@@ -1,4 +1,5 @@
 import logging
+import os
 
 from aleph.core import db
 from aleph.util import dict_list
@@ -17,6 +18,16 @@ def bulk_load(config):
     This is done by mapping the rows in the source data to entities and links
     which can be understood by the entity index.
     """
+    if 'config' in config and 'slugs' in config.get('config', []):
+        for slug in config['config']['slugs']:
+            os.environ['OSANC_SLUG'] = slug
+            config.pop('config', None) # Assume we're done with config for now
+            load_one(config)
+    else:
+        load_one(config)
+
+
+def load_one(config):
     for foreign_id, data in config.items():
         collection = Collection.by_foreign_id(foreign_id)
         if collection is None:

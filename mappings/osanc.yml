@@ -1,24 +1,25 @@
-slugs:
-  - un-sc-sanctions
-  - us-cia-world-leaders
-  - ua-sdfm-blacklist
-  - ch-seco-sanctions
-  - us-ofac
-  - us-bis-denied
-  - gb-hm-sanctionslist
-  - gb-coh-disqualified
-  - eu-eeas-sanctions
-  - kg-fiu-national
-  - interpol-red-notices
-  - everypolitician
-urls:
-  - &entities http://data.opensanctions.org/v1/sources/${OSANC_SLUG}/latest/entities.csv
-  - &identifiers http://data.opensanctions.org/v1/sources/${OSANC_SLUG}/latest/identifiers.csv
-  - &addresses http://data.opensanctions.org/v1/sources/${OSANC_SLUG}/latest/addresses.csv
-  - &birthdates http://data.opensanctions.org/v1/sources/${OSANC_SLUG}/latest/birthdates.csv
-  - &birthplaces http://data.opensanctions.org/v1/sources/${OSANC_SLUG}/latest/birthplaces.csv
-  - &nationalities http://data.opensanctions.org/v1/sources/${OSANC_SLUG}/latest/nationalities.csv
-  - &aliases http://data.opensanctions.org/v1/sources/${OSANC_SLUG}/latest/aliases.csv
+config:
+  slugs:
+    - us-ofac
+    - us-cia-world-leaders
+    - us-bis-denied
+    - gb-hm-sanctionslist
+    - gb-coh-disqualified
+    # - un-sc-sanctions TOFIX: raises unicode error (contains arabic)
+    # - ch-seco-sanctions
+    # - ua-sdfm-blacklist
+    # - eu-eeas-sanctions
+    # - kg-fiu-national
+    # - interpol-red-notices
+    # - everypolitician
+  urls:
+    - &entities http://data.opensanctions.org/v1/sources/${OSANC_SLUG}/latest/entities.csv
+    - &identifiers http://data.opensanctions.org/v1/sources/${OSANC_SLUG}/latest/identifiers.csv
+    - &addresses http://data.opensanctions.org/v1/sources/${OSANC_SLUG}/latest/addresses.csv
+    - &birthdates http://data.opensanctions.org/v1/sources/${OSANC_SLUG}/latest/birthdates.csv
+    - &birthplaces http://data.opensanctions.org/v1/sources/${OSANC_SLUG}/latest/birthplaces.csv
+    - &nationalities http://data.opensanctions.org/v1/sources/${OSANC_SLUG}/latest/nationalities.csv
+    - &aliases http://data.opensanctions.org/v1/sources/${OSANC_SLUG}/latest/aliases.csv
 osanc:
     label: OpenSanctions.org
     info_url: https://opensanctions.org
